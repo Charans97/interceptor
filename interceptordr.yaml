@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: interceptorpod
+spec:
+  containers:
+    - name: javaintconsumer
+      image: charans97/interceptor:v2
+      env:
+       - name: Properties_file
+         value: /etc/foo/interceptorc.properties
+      volumeMounts:
+        - name: foo
+          mountPath: "/etc/foo"
+          readOnly: true
+  volumes:
+    - name: foo
+      configMap:
+        name: intcmap

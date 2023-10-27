@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: myconsumerpod
+spec:
+  containers:
+    - name: javaconsumer
+      image: charans97/javaconsumer:v1
+      env:
+       - name: Properties_file
+         value: /etc/foo/consumer.properties
+      volumeMounts:
+        - name: foo
+          mountPath: "/etc/foo"
+          readOnly: true
+  volumes:
+    - name: foo
+      configMap:
+        name: myconsmap

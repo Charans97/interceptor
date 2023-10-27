@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: mypod
+spec:
+  containers:
+    - name: javaproducer
+      image: charans97/javaproducer:v3
+      env: 
+       - name: Properties_file
+         value: /etc/foo/producer.properties
+      volumeMounts:
+        - name: foo
+          mountPath: "/etc/foo"
+          readOnly: true
+  volumes:
+    - name: foo
+      configMap:
+        name: promap
